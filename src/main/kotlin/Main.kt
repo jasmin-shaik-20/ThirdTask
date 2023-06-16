@@ -15,13 +15,7 @@ class Playlist {
     var songs = mutableListOf<Song>()
 
     fun addSong(song: Song) {
-        var isDuplicate = false
-        for (existingSong in songs) {
-            if (existingSong.title == song.title) {
-                isDuplicate = true
-                break
-            }
-        }
+        val isDuplicate = songs.any { existingSong -> existingSong.title == song.title }
 
         if (isDuplicate) {
             throw DuplicateSongException("Song '${song.title}' is already in the playlist.")
@@ -55,16 +49,27 @@ fun main() {
             println("${song.title} by ${song.artist}")
         }
     }
+    var s=Song("Song 1", "Artist 1", 180)
+    s.play()
     val playlist = Playlist()
     playlist.songs = songs
+    println("Enter how many songs to add")
+    var num:Int=Integer.valueOf(readLine())
+    for(i in 1..num) {
+        println("Enter title name")
+        var title = readln()
+        println("Enter artist name")
+        var artist = readln()
+        println("Enter duration")
+        var duration: Int = Integer.valueOf(readLine())
+        var s1 = Song(title, artist, duration)
+
     try {
-        playlist.addSong(Song("Song 6", "Artist 2", 200))
-        playlist.addSong(Song("Song 7", "Artist 3", 210))
-        playlist.addSong(Song("Song 1", "Artist 1", 180))
+        playlist.addSong(s1)
 
     } catch (e: DuplicateSongException) {
         println("Error: ${e.message}")
 
-
+    }
     }
 }
